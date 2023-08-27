@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vocal Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg');
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        .message-container {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: scroll;
+        }
+        .user-message {
+            background-color: #f0f0f0;
+            padding: 8px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+        .chatbot-message {
+            background-color: #d0eaf5;
+            padding: 8px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chatbot Vocal</h1>
+        <div class="message-container">
+            <h2>User</h2>
+            <div class="user-message"></div>
+        </div>
+        <div class="message-container">
+            <h2>Chatbot</h2>
+            <div class="chatbot-message"></div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
+
