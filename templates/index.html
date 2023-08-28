@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="VoiceApp">
+
+<head>
+    <title>Appointment System</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <style>
+        .chat-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 200px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body ng-controller="MainCtrl">
+    <div ng-if="!showChat">
+        <h2>Welcome!</h2>
+        <button ng-click="bookAppointment()">Book an appointment</button>
+    </div>
+
+    <div ng-if="showChat">
+        <h2>Appointment Chat</h2>
+        <!-- [your previous code] -->
+        <div class="chat-box">
+            <p ng-repeat="message in messages">[[message.text]]</p>  <!-- Print the actual message text -->
+        </div>
+        <!-- [rest of your code] -->
+
+        <button ng-click="askQuestion()">Ask a question</button>
+    </div>
+</body>
+
+</html>
