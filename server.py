@@ -31,6 +31,7 @@ from scipy.io.wavfile import write
 from pickle import dumps, loads
 
 from concurrent.futures import ThreadPoolExecutor
+import pygame
 
 executor = ThreadPoolExecutor()
 
@@ -185,8 +186,21 @@ class AnswerQuestion(Resource):
 
                 print("DEBUG: elapsed time " +
                     "{:.2f}".format(timer() - start_time) + "s")
+                
                 print("Playing audio answer...")
-                os.system("mplayer " + spoken_answer_url + " > /dev/null 2>&1")
+                pygame.mixer.init()  # Initialize the mixer
+                pygame.init()
+                # Load the WAV file
+                sound = pygame.mixer.Sound(r"temp.wav")
+                # Play the sound
+                sound.play()
+                # Wait for the sound to finish playing
+                pygame.time.wait(int(sound.get_length() * 1000))  # Convert to milliseconds
+                pygame.mixer.quit()  # Quit the mixer
+                pygame.quit()
+                print("mplayer " + spoken_answer_url + " > /dev/null 2>&1")
+                
+                # os.system("mplayer " + spoken_answer_url + " > /dev/null 2>&1")
                 print("DEBUG: elapsed time " +
                     "{:.2f}".format(timer() - start_time) + "s")
 
@@ -194,14 +208,14 @@ class AnswerQuestion(Resource):
             except sr.UnknownValueError:
                 print('.... can`t understand')
 
-            return answer
+            return answer, question
 
         try:
             # Run your function
-            answer = answerQuestion()
+            answer, question = answerQuestion()
             return jsonify({
                 "status": "success",
-                "question": "Some question here",  # Modify this as per your logic if required
+                "question": question,  # Modify this as per your logic if required
                 "answer": answer
             })
         except Exception as e:
