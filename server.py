@@ -1,37 +1,28 @@
 from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 import speech_recognition as sr
-from flask import Flask, jsonify
 from flask_restful import Api, Resource
 from flask import Flask, render_template, jsonify, request, send_from_directory
-from flask_cors import CORS
-import speech_recognition as sr
-from flask_restful import Api, Resource
 import asyncio
 import websockets
 import warnings
 from urllib3.exceptions import InsecureRequestWarning
 import os
-
-#chatbot imports
-import asyncio
-import websockets
-import speech_recognition as sr
-#import requests
-import warnings
+import sys
 import json
 from urllib3.exceptions import InsecureRequestWarning
 warnings.simplefilter('ignore', InsecureRequestWarning)
-import urllib3
-import urllib
-import os
-import sys
 from timeit import default_timer as timer
 from scipy.io.wavfile import write
 from pickle import dumps, loads
-
 from concurrent.futures import ThreadPoolExecutor
 import pygame
+
+
+# Append medical appointements script
+sys.path.append('./')
+import medical_appointments
+
 
 executor = ThreadPoolExecutor()
 
@@ -57,8 +48,8 @@ class AnswerQuestion(Resource):
         encyclopedia = {
             "aş dori să fac o programare": "Bună ziua! În cele ce urmează, vom crea o nouă programare! Va rog specificați orașul în care va aflați",
             "bucureşti": "Vă rog specificați una dintre următoarele specializări: cardiologie, oftalmologie, pediatrie",
-            "argovişte": "Ne pare rău, această clinică nu există în Târgoviște.",
-            "cardiologie": "Pentru cardiologie, avem disponibile următoarele intervale: marti 10:00 - 11:00, joi 14:00 - 15:00. Va rog alegeți unul dintre intervale.",
+            "targovişte": "Ne pare rău, această clinică nu există în Târgoviște.",
+            # "cardiologie": "Pentru cardiologie, avem disponibile următoarele intervale: marti 10:00 - 11:00, joi 14:00 - 15:00. Va rog alegeți unul dintre intervale.",
             "oftalmologie": "Pentru oftalmologie, avem disponibile următoarele intervale: marti 11:00 - 12:00, joi 13:00 - 14:00. Va rog alegeți unul dintre intervale.",
             "marţi zece unsprezece": "Aveți o programare la cardiologie, marți 10:00 - 11:00, domnul doctor Y, la sediul din Calea Griviței, numărul 23, București.Confirmaţi această programare?",
             "marţi unsprezece doisprezece": "Aveti o programare la oftalmologie, marti 10:00 - 11:00, domnul doctor X, la sediul din Calea Grivitei, numarul 23, București.Confirmaţi această programare?",
@@ -161,7 +152,7 @@ class AnswerQuestion(Resource):
             r = sr.Recognizer()
 
             with sr.Microphone(sample_rate=16000) as source:
-                print('Ask a question...')
+                print('Intregistrati o intrebare...')
                 r.pause_threshold = 1
                 r.adjust_for_ambient_noise(source, duration=1)
                 audio = r.listen(source)
@@ -176,7 +167,10 @@ class AnswerQuestion(Resource):
                     "{:.2f}".format(timer() - start_time) + "s")
 
                 try:
-                    answer = encyclopedia[question]
+                    if question == 'cardiologie':
+                        answer = medical_appointments.handler()                      
+                    else:
+                        answer = encyclopedia[question]
                 except KeyError:
                     answer = "Nu știu să răspund la această întrebare"
                 print('Answer: ')
