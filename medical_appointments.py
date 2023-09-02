@@ -58,6 +58,7 @@ def readDbAvailability(doctor_id, todays_date, connection):
 
 def handler():
     # Database connection parameters 
+    # TODO: change password if needed
     host = '127.0.0.1'
     user = 'root'
     password = 'qwertyuiop321!'
