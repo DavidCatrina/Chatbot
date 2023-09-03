@@ -72,9 +72,9 @@ class AnswerQuestion(Resource):
             "bucureşti condiţionat"
             "vreau să ascult radio europa fm": "Am pornit radio europa efem.",
             "vreau să ascult radio europa efem": "Am pornit radio europa efem."
-
-
         }
+        
+        time_list = ['nouă', 'zece', 'unsprezece', 'doisprezece', 'treisprezece', 'paisprezece', 'cincisprezece', 'saisprezece', 'saptisprezece']
 
 
         # Mute ALSA output from the driver
@@ -147,7 +147,26 @@ class AnswerQuestion(Resource):
                     print ("DONE!")
                 return filename
 
-
+        def deleteLogContent(session_logs):
+            """Delete the content of the log file if the patient whats 
+            to make a new appointment"""
+            with open(session_logs, 'w') as file:
+                file.truncate()
+        
+        def createLogFile(session_logs):
+            """Create the log file"""
+            # Open the file in write mode to create an empty file
+            with open(session_logs, 'w') as file:
+                pass
+        def checkPosibleAppointmentSelection(question, time_list):
+            matching_count = sum(1 for time in time_list if time in question)
+            if matching_count >= 2:
+                posible_appointment_selection = True
+            else:
+                posible_appointment_selection = False
+                
+            return posible_appointment_selection
+            
         def answerQuestion():
             r = sr.Recognizer()
 
@@ -167,10 +186,29 @@ class AnswerQuestion(Resource):
                     "{:.2f}".format(timer() - start_time) + "s")
 
                 try:
-                    if question == 'cardiologie':
-                        answer = medical_appointments.handler()                      
+                    session_logs = 'temp_session.txt'
+                    posible_appointment_selection = checkPosibleAppointmentSelection(question, time_list)
+                    # Search for keywrods for new appointments
+                    if 'fac' in question and 'programare' in question:
+                        question = 'aş dori să fac o programare'
+                        
+                    if question == "aş dori să fac o programare":
+                        try:
+                            deleteLogContent(session_logs)
+                        except:
+                            createLogFile(session_logs)
+                        answer = encyclopedia[question]
+                    elif question == 'cardiologie':
+                        answer = medical_appointments.handler()
+                    elif posible_appointment_selection:
+                        answer = medical_appointments.checkAppointmentAvailability(question)
                     else:
                         answer = encyclopedia[question]
+                    
+                    # Store only valid questions and responses in the log file
+                    with open(session_logs, 'a', encoding='utf-8') as file:
+                        file.write(f'Q: {question}\n')
+                        file.write(f'A: {answer}\n')
                 except KeyError:
                     answer = "Nu știu să răspund la această întrebare"
                 print('Answer: ')
