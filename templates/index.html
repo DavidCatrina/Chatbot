@@ -1,11 +1,23 @@
-<!DOCTYPE html>
-<html ng-app="VoiceApp">
+<html ng-app="VoiceApp" class="ng-scope"><head><style>@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+    <title>Medicio Bootstrap Template - Index</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  
+    <!-- Vendor CSS Files -->
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<head>
-    <title>Appointment System</title>
+    <!-- Template Main CSS File -->
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+  
+    <!-- Additional scripts and styles for Appointment System -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <script src="/static/app.js"></script>
     <style>
         .chat-box {
             border: 1px solid #ddd;
@@ -15,24 +27,149 @@
             margin-bottom: 10px;
         }
     </style>
-</head>
+  </head>
+  
+  <body ng-class="{'background-set': setBackground}" data-aos-easing="ease-in-out" data-aos-duration="1000" data-aos-delay="0" ng-controller="MainCtrl" class="ng-scope">
+  
+ 
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top header-scrolled">
+      <div class="container d-flex align-items-center">
+  
+        <a href="index.html" class="logo me-auto"></a>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <h1 class="logo me-auto"><a href="index.html">Medicio</a></h1> -->
+  
+        <nav id="navbar" class="navbar order-last order-lg-0">
+          <ul>
+            <li><a class="nav-link scrollto" href="#hero">Acasa</a></li>
+            <li><a class="nav-link scrollto active" href="#about">Despre</a></li>
+            
+            <li><a class="nav-link scrollto active" href="#contact">Contact</a></li>
+          </ul>
+          <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
 
-<body ng-controller="MainCtrl">
+      </div>
+    </header><!-- End Header -->
+  
     <div ng-if="!showChat">
-        <h2>Welcome!</h2>
-        <button ng-click="bookAppointment()">Book an appointment</button>
-    </div>
-
-    <div ng-if="showChat">
-        <h2>Appointment Chat</h2>
-        <!-- [your previous code] -->
-        <div class="chat-box">
-            <p ng-repeat="message in messages">[[message.text]]</p>  <!-- Print the actual message text -->
+        <!-- ======= Hero Section ======= -->
+        <section id="hero">
+        <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    
+            <ol class="carousel-indicators" id="hero-carousel-indicators"><li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"></li><li data-bs-target="#heroCarousel" data-bs-slide-to="1" class=""></li><li data-bs-target="#heroCarousel" data-bs-slide-to="2" class=""></li><li data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></li><li data-bs-target="#heroCarousel" data-bs-slide-to="1"></li><li data-bs-target="#heroCarousel" data-bs-slide-to="2"></li></ol>
+    
+            <div class="carousel-inner" role="listbox">
+    
+            <!-- Slide 1 -->
+            <div class="carousel-item carousel-item-next carousel-item-start" style="background-image: url(/static/assets/img/slide/slide-1.jpg)">
+                <div class="container">
+                <h2>Welcome to <span>Medicio</span></h2>
+                <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>
+                <button class="btn-get-started scrollto" ng-click="bookAppointment()">Faceti o programare</button>
+                </div>
+            </div>
+    
+            <!-- Slide 2 -->
+            <div class="carousel-item" style="background-image: url(/static/assets/img/slide/slide-2.jpg)">
+                <div class="container">
+                <h2>Lorem Ipsum Dolor</h2>
+                <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>
+                <button class="btn-get-started scrollto" ng-click="bookAppointment()">Faceti o programare</button>
+                </div>
+            </div>
+    
+            <!-- Slide 3 -->
+            <div class="carousel-item active carousel-item-start" style="background-image: url(/static/assets/img/slide/slide-1.jpg)">
+                <div class="container">
+                <h2>Sequi ea ut et est quaerat</h2>
+                <p>Ut velit est quam dolor ad a aliquid qui aliquid. Sequi ea ut et est quaerat sequi nihil ut aliquam. Occaecati alias dolorem mollitia ut. Similique ea voluptatem. Esse doloremque accusamus repellendus deleniti vel.</p>
+                <button class="btn-get-started scrollto" ng-click="bookAppointment()">Faceti o programare</button>
+                </div>
+            </div>
+    
+            </div>
+    
+            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+            </a>
+    
+            <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+            </a>
+    
         </div>
-        <!-- [rest of your code] -->
+        </section><!-- End Hero -->
+    
+        <main id="main">
+    
+        <!-- ======= Featured Services Section ======= -->
+        <!-- End Featured Services Section -->
+    
+        <!-- ======= Cta Section ======= -->
+        <!-- End Cta Section -->
+    
+        <!-- ======= About Us Section ======= -->
+        <section id="about" class="about">
+            <div class="container aos-init aos-animate" data-aos="fade-up">
+    
+            <div class="section-title">
+                <h2>Despre noi</h2>
+                <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+            </div>
+    
+            <div class="row">
+                <div class="col-lg-6 aos-init aos-animate" data-aos="fade-right">
+                <img src="/static/assets/img/about.jpg" class="img-fluid" alt="">
 
-        <button ng-click="askQuestion()">Inregistrati o intrebare</button>
+                </div>
+                <div class="col-lg-6 pt-4 pt-lg-0 content aos-init aos-animate" data-aos="fade-left">
+                <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+                <p class="fst-italic">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+                    magna aliqua.
+                </p>
+                <ul>
+                    <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                    <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
+                    <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
+                </ul>
+                <p>
+                    Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+                    culpa qui officia deserunt mollit anim id est laborum
+                </p>
+                </div>
+            </div>
+    
+            </div>
+        </section><!-- End About Us Section -->    
+        </main><!-- End #main -->
     </div>
-</body>
+   
+    <div class="container">
+        <main id="main">
+            <section id="about" class="about">
+                <div ng-if="showChat">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <h2>Faceti o programare folosing ChatBot</h2>
+                    <!-- [your previous code] -->
+                    <div class="chat-box white-background ng-scope">
+                        <p class="font-weight-bold" ng-repeat="message in messages">[[message.text]]</p>  <!-- Print the actual message text -->
+                    </div>
+                    <!-- [rest of your code] -->
+                    <button class="btn-get-started scrollto" ng-click="askQuestion()">Inregistrati o intrebare</button>
+                </div>
+            </section><!-- End #about -->
+        </main>
+    </div>
 
-</html>
+    <!-- Vendor JS Files -->
+    <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  </body></html>

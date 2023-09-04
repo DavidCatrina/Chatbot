@@ -6,11 +6,13 @@ app.config(function($interpolateProvider) {
 });
 
 app.controller('MainCtrl', ['$scope', '$http', function($scope, $http) {
+    $scope.setBackground = false;
     $scope.showChat = false;
     $scope.messages = [];
 
     $scope.bookAppointment = function() {
         $scope.showChat = true;
+        $scope.setBackground = true;
         $scope.messages.push({
             text: 'Bine ati venit la sistemul de programari. Cum va pot ajuta?'
         });
